@@ -2,6 +2,7 @@ const http = require('http');
 const EventEmitter = require('events');
 
 module.exports = class Application {
+
     constructor() {
         this.emitter = new EventEmitter();
         this.server = this._createServer()
@@ -11,7 +12,8 @@ module.exports = class Application {
         this.server.listen(port, callback)
     }
 
-    // добавление роута c назначением события
+    // добавление роута c назначением событий
+
     addRouter(router) {
         Object.keys(router.endpoints).forEach(path => {
             const endpoint = router.endpoints[path];
@@ -36,7 +38,7 @@ module.exports = class Application {
         })
     }
 
-    // маска для emit события
+    // маска для emit событий
 
     _getRouteMask(path, method) {
         return `[${path}]:[${method}]`
