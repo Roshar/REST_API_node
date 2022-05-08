@@ -1,17 +1,16 @@
+import App from "./core/Application.js"
+import users from "./src/routes/users.js"
+import parseJson from "./middleware/parseJson.js"
+import parseUrl from "./middleware/parseUrl.js"
 const PORT = process.env.PORT || 3000;
-const Router = require('./framework/Router')
-const App = require('./framework/Application')
+const baseUrl = process.env.URL || 'http://localhost';
+
 const app = new App();
-const router = new Router();
+app.use(parseUrl(baseUrl))
+app.use(parseJson)
+app.addRouter(users)
+app.listen(PORT)
 
-router.get('/test1', (req, res) => {
-    res.end('Welcome to test 1')
-})
 
-router.get('/test2', (req, res) => {
-    res.end('Welcome to test 2')
-})
 
-app.addRouter(router)
 
-app.listen(PORT, () => {console.log(`Сервер работает на ${PORT}`)})
